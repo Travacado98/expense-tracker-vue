@@ -1,45 +1,47 @@
 <template>
-  <div class="modal" id="edit-modal">
-    <div class="modal-content">
-      <form @submit.prevent="editExpense">
-        <div id="modal-children">
-          <h2 id="modal-text">
-            Edit Expense
-            <span class="material-icons" @click="$emit('close')"> close </span>
-          </h2>
+  <modal title="Edit Expense" @close="$emit('close')">
+    <form @submit.prevent="editExpense">
+      <form-input
+        v-model="editForm.name"
+        type="text"
+        @input="checkFormValidity"
+      />
 
-          <input
-            v-model="editForm.name"
-            id="edit-name"
-            type="text"
-            @input="checkFormValidity"
-          />
+      <form-input
+        v-model="editForm.amount"
+        type="number"
+        step=".01"
+        @input="checkFormValidity"
+      />
 
-          <input
-            v-model="editForm.amount"
-            id="edit-amount"
-            type="number"
-            step=".01"
-            @input="checkFormValidity"
-          />
+      <form-input v-model="editForm.date" type="date" />
 
-          <input v-model="editForm.date" id="edit-date" type="date" />
-
-          <btn id="modal-button" type="submit" icon="save"> Save Expense </btn>
-        </div>
-      </form>
-    </div>
-  </div>
+      <btn type="submit" icon="save"> Save Expense </btn>
+      <btn
+        type="button"
+        @click="deleteExpense(expenseItem._id)"
+        icon="delete"
+        class="delete"
+      >
+        Delete
+      </btn>
+    </form>
+  </modal>
 </template>
 
 <script>
 import moment from "moment";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import Modal from "@/components/Modal.vue";
 
 export default {
   props: { expenseItem: Object },
 
   emits: ["close"],
+
+  components: {
+    Modal,
+  },
 
   data() {
     return {
@@ -57,6 +59,12 @@ export default {
   },
 
   methods: {
+    deleteExpense(id) {
+      if (confirm("Do you really want to delete?") === true) {
+        deleteDoc(doc(this.$db, "expenses", id));
+        this.$emit("close");
+      }
+    },
     editExpense() {
       this.editForm.submitted = true;
 
@@ -105,50 +113,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal {
-  position: fixed;
-  display: flex;
-  background-color: #0004;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-
-  h2 {
-    margin: 0;
-  }
-
-  #modal-text {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    span {
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    min-width: 600px;
-    #modal-children {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-
-      input {
-        padding: 0 20px;
-        border: 0;
-        background-color: #edf2ec;
-        border-radius: 10px;
-        outline-color: #529d41;
-        height: 50px;
-      }
-    }
-  }
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button class="btn">
     <span class="material-icons">{{ icon }}</span>
     <slot />
   </button>

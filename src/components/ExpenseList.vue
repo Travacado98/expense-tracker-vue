@@ -11,6 +11,7 @@
       :key="expenseItem._id"
       class="expense-item"
       :id="expenseItem._id"
+      @click="selectRow(expenseItem)"
     >
       <span>{{ expenseItem.name }}</span>
       <span
@@ -23,7 +24,8 @@
         ]"
         >{{ formatCurrency(expenseItem.amount) }}</span
       >
-      <span>{{ expenseItem.date }}</span>
+      <span class="date-span">{{ expenseItem.date }}</span>
+
       <div class="button-row">
         <btn @click="editExpense(expenseItem)" icon="edit" class="secondary">
           Edit
@@ -47,14 +49,26 @@ export default {
     list: Array,
     formatter: Object,
   },
+
   emits: ["edit"],
+
   methods: {
-    deleteExpense(id) {
-      deleteDoc(doc(this.$db, "expenses", id));
+    selectRow(expenseItem) {
+      if (window.innerWidth <= 900) {
+        this.editExpense(expenseItem);
+      }
     },
+
+    deleteExpense(id) {
+      if (confirm("Do you really want to delete?") === true) {
+        deleteDoc(doc(this.$db, "expenses", id));
+      }
+    },
+
     formatCurrency(amount) {
       return this.formatter.format(amount);
     },
+
     editExpense(expenseItem) {
       this.$emit("edit", expenseItem);
     },
@@ -63,7 +77,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss/variables";
+
 .label-container {
+  @media ($mobile) {
+    display: none;
+  }
+
   padding: 10px 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -81,6 +101,17 @@ export default {
   }
 }
 .expense-item {
+  @media ($mobile) {
+    grid-template-columns: 2fr 1fr;
+    gap: 5px 20px;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #edf2ec;
+      border-radius: 10px;
+    }
+  }
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-content: space-between;
@@ -89,15 +120,35 @@ export default {
   padding: 10px 0;
 }
 
+.date-span {
+  @media ($mobile) {
+    color: #afb7ae;
+    font-size: 12px;
+  }
+}
+
 .amount-span {
+  @media ($mobile) {
+  }
   text-align: right;
-  font-family: monospace;
+  font-family: "Space Mono";
 }
 .button-row {
+  @media ($mobile) {
+    display: none;
+    position: absolute;
+    bottom: 0px;
+  }
+  @media ($tablet) {
+    flex-wrap: wrap;
+  }
   display: flex;
   gap: 10px;
 
   button {
+    @media ($tablet) {
+      width: 100%;
+    }
     width: 50%;
   }
 }

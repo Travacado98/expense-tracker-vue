@@ -4,6 +4,7 @@ import { createApp } from "vue";
 
 import App from "@/App.vue";
 import Btn from "@/components/Btn.vue";
+import FormInput from "@/components/FormInput.vue";
 import "@/scss/global.scss";
 
 const firebaseConfig = {
@@ -21,5 +22,6 @@ const db = getFirestore(firebaseApp);
 
 const app = createApp(App);
 app.component("Btn", Btn);
+app.component("FormInput", FormInput);
 app.config.globalProperties.$db = db;
 app.mount("#app");

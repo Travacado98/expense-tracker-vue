@@ -1,35 +1,30 @@
 <template>
-  <form @submit.prevent="addExpense">
-    <div id="input-container">
-      <input
-        v-model="form.name"
-        id="add-name"
-        type="text"
-        placeholder="Name*"
-        :class="{ invalid: form.submitted && !form.name }"
-        @input="checkFormValidity"
-      />
+  <form class="add-expense-form" @submit.prevent="addExpense">
+    <form-input
+      v-model="form.name"
+      type="text"
+      placeholder="Name*"
+      :class="{ invalid: form.submitted && !form.name }"
+      @input="checkFormValidity"
+    />
 
-      <input
-        v-model="form.amount"
-        id="add-amount"
-        type="number"
-        step=".01"
-        placeholder="Amount*"
-        :class="{ invalid: form.submitted && !form.amount }"
-        @input="checkFormValidity"
-      />
+    <form-input
+      v-model="form.amount"
+      type="number"
+      step=".01"
+      placeholder="Amount*"
+      :class="{ invalid: form.submitted && !form.amount }"
+      @input="checkFormValidity"
+    />
 
-      <input
-        v-model="form.date"
-        id="add-date"
-        type="text"
-        placeholder="Due Date"
-        onfocus="(this.type='date')"
-      />
+    <form-input
+      v-model="form.date"
+      type="text"
+      placeholder="Due Date"
+      onfocus="(this.type='date')"
+    />
 
-      <btn id="add-button" type="submit" icon="add_circle"> Add Expense </btn>
-    </div>
+    <btn type="submit" icon="add_circle"> Add Expense </btn>
   </form>
 </template>
 
@@ -37,6 +32,8 @@
 import { collection, addDoc } from "firebase/firestore";
 
 export default {
+  emits: ["close"],
+
   data() {
     return {
       form: {
@@ -47,6 +44,7 @@ export default {
       },
     };
   },
+
   methods: {
     checkFormValidity() {
       if (!this.form.submitted) return true;
@@ -55,6 +53,7 @@ export default {
 
       return name && amount;
     },
+
     async addExpense() {
       this.form.submitted = true;
 
@@ -78,24 +77,25 @@ export default {
       this.form.date = "";
 
       this.form.submitted = false;
+
+      this.$emit("close");
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#input-container {
+@import "@/scss/variables";
+
+form {
+  @media ($mobile) {
+    grid-template-columns: 1fr;
+  }
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   place-content: center;
   gap: 20px;
   padding-bottom: 10px;
-  input {
-    padding: 0 20px;
-    border: 0;
-    background-color: #edf2ec;
-    border-radius: 10px;
-    outline-color: #529d41;
-  }
 }
 </style>
