@@ -20,7 +20,8 @@
 
       <form-input v-model="editForm.date" type="date" />
 
-      <btn type="submit" icon="save"> Save Expense </btn>
+      <btn type="submit" icon="save">Save Expense</btn>
+
       <btn
         type="button"
         @click="deleteExpense(expenseItem._id)"
@@ -36,6 +37,7 @@
 <script>
 import moment from "moment";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+
 import Modal from "@/components/Modal.vue";
 
 export default {
@@ -64,11 +66,12 @@ export default {
 
   methods: {
     deleteExpense(id) {
-      if (confirm("Do you really want to delete?") === true) {
+      if (confirm("Do you really want to delete?")) {
         deleteDoc(doc(this.$db, "expenses", id));
         this.$emit("close");
       }
     },
+
     editExpense() {
       this.editForm.submitted = true;
 

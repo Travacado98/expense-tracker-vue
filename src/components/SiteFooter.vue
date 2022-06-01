@@ -19,7 +19,7 @@ footer {
   }
 
   margin-top: 20px;
-  color: #a7bca3;
+  color: $footer;
   font-size: 14px;
 
   a {
@@ -27,15 +27,15 @@ footer {
   }
 
   #link {
-    color: #a7bca3;
+    color: inherit;
 
     &:hover {
-      color: #529d41;
+      color: $green;
     }
 
     &:visited {
       text-decoration: none;
-      color: #a7bca3;
+      color: inherit;
     }
   }
 }

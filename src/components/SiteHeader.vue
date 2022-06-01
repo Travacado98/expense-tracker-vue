@@ -103,6 +103,7 @@ header {
       @media ($mobile) {
         font-size: 24px;
       }
+
       font-size: 42px;
       font-family: "Space Mono";
       margin-left: 5px;

@@ -8,17 +8,17 @@
   box-sizing: border-box;
 }
 
-.negative {
-  color: #e04545 !important;
-}
-
-.positive {
-  color: #529d41 !important;
-}
-
 html {
   font-family: Poppins, sans-serif;
   font-weight: 600;
-  color: #454845;
+  color: $black;
   font-size: 18px;
+}
+
+.positive {
+  color: $green !important;
+}
+
+.negative {
+  color: $red !important;
 }

@@ -3,7 +3,7 @@
     <div class="modal-content">
       <h2 class="modal-title">
         {{ title }}
-        <span class="material-icons" @click="$emit('close')"> close </span>
+        <span class="material-icons" @click="$emit('close')">close</span>
       </h2>
 
       <slot />
@@ -16,6 +16,7 @@ export default {
   props: {
     title: String,
   },
+
   emits: ["close"],
 };
 </script>

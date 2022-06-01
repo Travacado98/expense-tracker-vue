@@ -13,6 +13,7 @@ export default {
     modelValue: String,
     invalid: Boolean,
   },
+
   emits: ["update:modelValue"],
 };
 </script>

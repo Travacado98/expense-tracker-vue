@@ -50,6 +50,7 @@
 
 <script>
 import { doc, deleteDoc } from "firebase/firestore";
+
 import EditExpenseModal from "@/components/EditExpenseModal.vue";
 
 export default {
@@ -121,6 +122,7 @@ export default {
     width: 100%;
   }
 }
+
 .expense-item {
   @media ($mobile) {
     grid-template-columns: 2fr 1fr;
@@ -133,6 +135,7 @@ export default {
       border-radius: 10px;
     }
   }
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-content: space-between;
@@ -149,20 +152,21 @@ export default {
 }
 
 .amount-span {
-  @media ($mobile) {
-  }
   text-align: right;
   font-family: "Space Mono";
 }
+
 .button-row {
   @media ($mobile) {
     display: none;
     position: absolute;
     bottom: 0px;
   }
+
   @media ($tablet) {
     flex-wrap: wrap;
   }
+
   display: flex;
   gap: 10px;
 
@@ -170,6 +174,7 @@ export default {
     @media ($tablet) {
       width: 100%;
     }
+
     width: 50%;
   }
 }

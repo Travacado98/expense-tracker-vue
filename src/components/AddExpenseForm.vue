@@ -24,7 +24,7 @@
       onfocus="(this.type='date')"
     />
 
-    <btn type="submit" icon="add_circle"> Add Expense </btn>
+    <btn type="submit" icon="add_circle">Add Expense</btn>
   </form>
 </template>
 

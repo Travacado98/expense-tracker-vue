@@ -1,6 +1,6 @@
 <template>
   <div class="add-expense-mobile-footer">
-    <btn icon="add_circle" @click="openAddModal"> Add Expense </btn>
+    <btn icon="add_circle" @click="openAddModal">Add Expense</btn>
     <add-expense-modal v-if="showAddModal" @close="showAddModal = false" />
   </div>
 </template>
@@ -34,6 +34,7 @@ export default {
   @media ($desktop) {
     display: none;
   }
+
   position: fixed;
   bottom: 0;
   left: 0;
