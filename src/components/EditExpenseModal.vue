@@ -4,13 +4,17 @@
       <form-input
         v-model="editForm.name"
         type="text"
+        placeholder="Name*"
+        :invalid="editForm.submitted && !editForm.name"
         @input="checkFormValidity"
       />
 
       <form-input
         v-model="editForm.amount"
         type="number"
+        placeholder="Amount*"
         step=".01"
+        :invalid="editForm.submitted && !editForm.amount"
         @input="checkFormValidity"
       />
 

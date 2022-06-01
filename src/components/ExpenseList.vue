@@ -39,18 +39,39 @@
         </btn>
       </div>
     </div>
+
+    <edit-expense-modal
+      v-if="showEditModal"
+      :expense-item="showEditModal"
+      @close="showEditModal = false"
+    />
   </div>
 </template>
 
 <script>
 import { doc, deleteDoc } from "firebase/firestore";
+import EditExpenseModal from "@/components/EditExpenseModal.vue";
+
 export default {
-  props: {
-    list: Array,
-    formatter: Object,
+  components: {
+    EditExpenseModal,
   },
 
-  emits: ["edit"],
+  props: {
+    list: Array,
+  },
+
+  data() {
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+
+    return {
+      formatter,
+      showEditModal: false,
+    };
+  },
 
   methods: {
     selectRow(expenseItem) {
@@ -70,7 +91,7 @@ export default {
     },
 
     editExpense(expenseItem) {
-      this.$emit("edit", expenseItem);
+      this.showEditModal = expenseItem;
     },
   },
 };

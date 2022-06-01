@@ -1,28 +1,40 @@
 <template>
-  <div>
-    <input
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
-      v-bind="$attrs"
-    />
-  </div>
+  <input
+    :value="modelValue"
+    :class="{ invalid }"
+    @input="$emit('update:modelValue', $event.target.value)"
+    v-bind="$attrs"
+  />
 </template>
 
 <script>
 export default {
-  props: ["modelValue"],
+  props: {
+    modelValue: String,
+    invalid: Boolean,
+  },
   emits: ["update:modelValue"],
 };
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss/variables";
+
 input {
+  background-color: $input;
   width: 100%;
   padding: 0 20px;
-  border: 0;
-  background-color: #edf2ec;
+  border: solid 2px transparent;
+  outline: 0;
   border-radius: 10px;
-  outline-color: #529d41;
   height: 50px;
+
+  &:focus {
+    border-color: $green;
+  }
+
+  &.invalid {
+    border-color: $red;
+  }
 }
 </style>

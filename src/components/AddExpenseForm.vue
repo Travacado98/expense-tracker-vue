@@ -4,7 +4,7 @@
       v-model="form.name"
       type="text"
       placeholder="Name*"
-      :class="{ invalid: form.submitted && !form.name }"
+      :invalid="form.submitted && !form.name"
       @input="checkFormValidity"
     />
 
@@ -13,7 +13,7 @@
       type="number"
       step=".01"
       placeholder="Amount*"
-      :class="{ invalid: form.submitted && !form.amount }"
+      :invalid="form.submitted && !form.amount"
       @input="checkFormValidity"
     />
 
