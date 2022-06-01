@@ -1,9 +1,7 @@
 <template>
   <footer>
     <span>A project by </span>
-    <a href="http://travissmith.xyz">
-      <span id="link">Travis Smith</span>
-    </a>
+    <a href="http://travissmith.xyz">Travis Smith</a>
   </footer>
 </template>
 
@@ -24,18 +22,15 @@ footer {
 
   a {
     text-decoration: none;
-  }
-
-  #link {
     color: inherit;
-
-    &:hover {
-      color: $green;
-    }
 
     &:visited {
       text-decoration: none;
       color: inherit;
+    }
+
+    &:hover {
+      color: $green;
     }
   }
 }
